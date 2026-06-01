@@ -75,7 +75,19 @@ int n, i, f, linha, coluna, cor_sorteada;
             printf("Arquivo %s gerado com sucesso.\n", nome_arquivo);
             fclose(arquivo);
         }
+<<<<<<< HEAD
     }
+=======
+        cor++;
+        }
+       int resulado = embaralhador(cubo);
+
+        if(resulado == 1){
+            printf("Cubo embaralhado com sucesso!\n");
+        } else {
+            printf("Erro ao embaralhar o cubo.\n");
+        }
+>>>>>>> 31d3288b92efd0787d32c385c38c2a5a58e4a159
 
     return 0;    
     
