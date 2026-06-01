@@ -15,6 +15,13 @@ int main (int argc, char ** argv){
             }
         }
         cor++;
-    }
+        }
+       int resulado = embaralhador(cubo);
+
+        if(resulado == 1){
+            printf("Cubo embaralhado com sucesso!\n");
+        } else {
+            printf("Erro ao embaralhar o cubo.\n");
+        }
 
 }
