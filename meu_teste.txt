@@ -1,0 +1,25 @@
+# Cubo embaralhado com 4 movimentos
+C
+RYY
+RYR
+GYR
+B
+OGG
+WGG
+WGG
+E
+YYR
+RRW
+RRW
+D
+BBO
+OOO
+OOO
+F
+BOY
+YWW
+YWW
+T
+BBW
+BBG
+BBG

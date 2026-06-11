@@ -9,9 +9,9 @@ all: gerador cubo
 gerador: gerador.c cubinho.c cubo.h
 	$(CC) $(CFLAGS) gerador.c cubinho.c -o gerador
 
-# --- Regra para o cubo.c ---
+# --- Regra para o cubo.c (COM NCURSES) ---
 cubo: cubo.c cubinho.c cubo.h
-	$(CC) $(CFLAGS) cubo.c cubinho.c -o cubo
+	$(CC) $(CFLAGS) cubo.c cubinho.c -o cubo -lncurses
 
 # --- Limpeza ---
 clean:

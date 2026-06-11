@@ -1,4 +1,4 @@
-// Arquivo: FISICA CUBO
+// ARQUIVO ROTACAO CUBO
 #include <stdio.h>
 #include "cubo.h"
 
@@ -31,7 +31,7 @@ int cubo_esta_resolvido() {
 }
 
 void imprime_cubo() {
-    // Imprime de forma simplificada
+    // Função de debug simplificada
     printf("Face CIMA:\n");
     for(int l=0; l<3; l++) {
         for(int c=0; c<3; c++) printf("%c ", letras_cores[cubo[CIMA][l][c]]);
@@ -40,7 +40,7 @@ void imprime_cubo() {
     printf("\n");
 }
 
-// Gira a matriz 3x3 de uma face em 90 graus
+// Gira a matriz 3x3 da própria face em 90 graus
 void gira_face_90_graus(int f, int direcao) {
     int temp[3][3];
     for (int l = 0; l < 3; l++) {
@@ -57,7 +57,7 @@ void gira_face_90_graus(int f, int direcao) {
 }
 
 void rotacao(int face, int direcao) {
-    // 1. Gira a própria face 3x3
+    // 1. Gira a face 3x3
     gira_face_90_graus(face, direcao);
 
     // 2. Gira as faixas adjacentes
@@ -77,6 +77,81 @@ void rotacao(int face, int direcao) {
             for(int i=0; i<3; i++) cubo[TRAS][0][i] = cubo[DIREITA][0][i];
             for(int i=0; i<3; i++) cubo[DIREITA][0][i] = temp[i];
         }
+    } 
+    else if (face == BAIXO) {
+        if (direcao == HORARIO) {
+            for(int i=0; i<3; i++) temp[i] = cubo[FRENTE][2][i];
+            for(int i=0; i<3; i++) cubo[FRENTE][2][i] = cubo[ESQUERDA][2][i];
+            for(int i=0; i<3; i++) cubo[ESQUERDA][2][i] = cubo[TRAS][2][i];
+            for(int i=0; i<3; i++) cubo[TRAS][2][i] = cubo[DIREITA][2][i];
+            for(int i=0; i<3; i++) cubo[DIREITA][2][i] = temp[i];
+        } else {
+            for(int i=0; i<3; i++) temp[i] = cubo[FRENTE][2][i];
+            for(int i=0; i<3; i++) cubo[FRENTE][2][i] = cubo[DIREITA][2][i];
+            for(int i=0; i<3; i++) cubo[DIREITA][2][i] = cubo[TRAS][2][i];
+            for(int i=0; i<3; i++) cubo[TRAS][2][i] = cubo[ESQUERDA][2][i];
+            for(int i=0; i<3; i++) cubo[ESQUERDA][2][i] = temp[i];
+        }
     }
-    // continuar o mapeamento aqui para BAIXO, ESQUERDA, DIREITA, etc.
+    else if (face == FRENTE) {
+        if (direcao == HORARIO) {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][2][i];
+            for(int i=0; i<3; i++) cubo[CIMA][2][i] = cubo[ESQUERDA][2-i][2];
+            for(int i=0; i<3; i++) cubo[ESQUERDA][i][2] = cubo[BAIXO][0][i];
+            for(int i=0; i<3; i++) cubo[BAIXO][0][i] = cubo[DIREITA][2-i][0];
+            for(int i=0; i<3; i++) cubo[DIREITA][i][0] = temp[i];
+        } else {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][2][i];
+            for(int i=0; i<3; i++) cubo[CIMA][2][i] = cubo[DIREITA][i][0];
+            for(int i=0; i<3; i++) cubo[DIREITA][i][0] = cubo[BAIXO][0][2-i];
+            for(int i=0; i<3; i++) cubo[BAIXO][0][i] = cubo[ESQUERDA][i][2];
+            for(int i=0; i<3; i++) cubo[ESQUERDA][i][2] = temp[2-i];
+        }
+    }
+    else if (face == TRAS) {
+        if (direcao == HORARIO) {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][0][i];
+            for(int i=0; i<3; i++) cubo[CIMA][0][i] = cubo[DIREITA][i][2];
+            for(int i=0; i<3; i++) cubo[DIREITA][i][2] = cubo[BAIXO][2][2-i];
+            for(int i=0; i<3; i++) cubo[BAIXO][2][i] = cubo[ESQUERDA][i][0];
+            for(int i=0; i<3; i++) cubo[ESQUERDA][i][0] = temp[2-i];
+        } else {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][0][i];
+            for(int i=0; i<3; i++) cubo[CIMA][0][i] = cubo[ESQUERDA][2-i][0];
+            for(int i=0; i<3; i++) cubo[ESQUERDA][i][0] = cubo[BAIXO][2][i];
+            for(int i=0; i<3; i++) cubo[BAIXO][2][i] = cubo[DIREITA][2-i][2];
+            for(int i=0; i<3; i++) cubo[DIREITA][i][2] = temp[i];
+        }
+    }
+    else if (face == ESQUERDA) {
+        if (direcao == HORARIO) {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][i][0];
+            for(int i=0; i<3; i++) cubo[CIMA][i][0] = cubo[TRAS][2-i][2];
+            for(int i=0; i<3; i++) cubo[TRAS][i][2] = cubo[BAIXO][2-i][0];
+            for(int i=0; i<3; i++) cubo[BAIXO][i][0] = cubo[FRENTE][i][0];
+            for(int i=0; i<3; i++) cubo[FRENTE][i][0] = temp[i];
+        } else {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][i][0];
+            for(int i=0; i<3; i++) cubo[CIMA][i][0] = cubo[FRENTE][i][0];
+            for(int i=0; i<3; i++) cubo[FRENTE][i][0] = cubo[BAIXO][i][0];
+            for(int i=0; i<3; i++) cubo[BAIXO][i][0] = cubo[TRAS][2-i][2];
+            for(int i=0; i<3; i++) cubo[TRAS][i][2] = temp[2-i];
+        }
+    }
+    else if (face == DIREITA) {
+        if (direcao == HORARIO) {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][i][2];
+            for(int i=0; i<3; i++) cubo[CIMA][i][2] = cubo[FRENTE][i][2];
+            for(int i=0; i<3; i++) cubo[FRENTE][i][2] = cubo[BAIXO][i][2];
+            for(int i=0; i<3; i++) cubo[BAIXO][i][2] = cubo[TRAS][2-i][0];
+            for(int i=0; i<3; i++) cubo[TRAS][i][0] = temp[2-i];
+        } else {
+            for(int i=0; i<3; i++) temp[i] = cubo[CIMA][i][2];
+            for(int i=0; i<3; i++) cubo[CIMA][i][2] = cubo[TRAS][2-i][0];
+            for(int i=0; i<3; i++) cubo[TRAS][i][0] = cubo[BAIXO][2-i][2];
+            for(int i=0; i<3; i++) cubo[BAIXO][i][2] = cubo[FRENTE][i][2];
+            for(int i=0; i<3; i++) cubo[FRENTE][i][2] = temp[i];
+        }
+    }
 }
+//Tem que passar para variavel temporária para não perder o valor anterior!!!!
