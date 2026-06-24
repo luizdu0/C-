@@ -10,9 +10,10 @@ instruções para execução do projeto
 
 //
 
+gerador.c
 
-
-explição da montagem do trabalho/colaboradores
+dei umas alternadas p main ficar somente no cubo.c e tipo botei p criar somente .txt antes era gerar 
+cores aleatorias mas agora pega um cubo 100% resolvido e aplica os giros aleatorios com o cubinho.c
 
 
 
