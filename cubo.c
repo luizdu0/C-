@@ -5,8 +5,8 @@
 
 // FUNÇÕES DE LÓGICA E LEITURA 
 
-int carregar_cubo(const char* nome_arquivo) {
-    FILE *arquivo = fopen(nome_arquivo, "r");
+int carregarCubo(const char* nome_arq) {
+    FILE *arquivo = fopen(nome_arq, "r");
     if (arquivo == NULL) return 0;
 
     char buffer[100];
@@ -66,8 +66,8 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    if (!carregar_cubo(argv[1])) {
-        printf("Erro: Nao foi possivel abrir o arquivo '%s'.\n", argv[1]);
+    if (!carregarCubo(argv[1])) {
+        printf("Erro: Nao foi possivel abrir o arquivo %s\n", argv[1]);
         return 1;
     }
 
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
     int total_passos = 0;
 
     // Busca a solução no background primeiro
-    printf("Calculando a solucao (limite de %d movimentos)... Aguarde.\n", limite);
+    printf("Calculando a solucao (limite de %d movimentos)... Aguarde\n", limite);
     for (int i = 1; i <= limite; i++) {
         if (resolve(0, i, seq_face, seq_dir)) {
             total_passos = i;
@@ -87,14 +87,14 @@ int main(int argc, char** argv) {
     }
 
     if (!resolvido) {
-        printf("Nao foi possivel encontrar uma solucao em ate %d passos para esta instancia.\n", limite);
+        printf("Nao foi possivel encontrar uma solucao em ate %d passos para esta instancia\n", limite);
         return 1;
     }
 
     // Recarrega o cubo bagunçado do arquivo para mostrar a animação do zero
-    carregar_cubo(argv[1]); 
+    carregarCubo(argv[1]); 
 
-    // EXIBIÇÃO GRÁFICA
+    //EXIBIÇÃO GRÁFICA
     executa_animacao(total_passos, seq_face, seq_dir);
 
     return 0;
