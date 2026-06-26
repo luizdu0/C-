@@ -9,20 +9,31 @@ int carregarCubo(const char* nome_arq) {
     FILE *arquivo = fopen(nome_arq, "r");
     if (arquivo == NULL) return 0;
 
-    char buffer[100];
-    fgets(buffer, sizeof(buffer), arquivo); 
 
+    // Ignorar linhas de comentários que iniciam com #
+    char c;
+    while (fscanf(arquivo, " %c", &c) == 1) {
+        if (c == '#') {
+            while ((c = fgetc(arquivo)) != '\n' && c != EOF);
+        } else {
+            ungetc(c, arquivo); // (ungetc) A letra volta para o fluxo para que o fscanf da face leia corretamente
+            break; 
+        }
+    }
+
+
+    // Lê as 6 faces do txt, percorre a grade 3x3 de cada uma e traduz a letra da cor lida para um número, montando a matriz 3D do cubo
     for (int f = 0; f < 6; f++) {
         char letra_face;
         fscanf(arquivo, " %c", &letra_face); 
 
         for (int l = 0; l < 3; l++) {
-            for (int c = 0; c < 3; c++) {
+            for (int col = 0; col < 3; col++) {
                 char letra_cor;
                 fscanf(arquivo, " %c", &letra_cor);
                 for(int i = 0; i < 6; i++) {
                     if (letra_cor == letras_cores[i]) {
-                        cubo[f][l][c] = i;
+                        cubo[f][l][col] = i;
                         break;
                     }
                 }
@@ -33,9 +44,11 @@ int carregarCubo(const char* nome_arq) {
     return 1;
 }
 
+
 // Algoritmo de Backtracking
 int resolve(int qtd_atual, int limite, int* passos_face, int* passos_direcao) {
-    if (cubo_esta_resolvido()) return 1; 
+
+    if (cuboEstaResolvido()) return 1; 
     if (qtd_atual >= limite) return 0; 
 
     for (int f = 0; f < 6; f++) {
@@ -58,7 +71,6 @@ int resolve(int qtd_atual, int limite, int* passos_face, int* passos_direcao) {
 
 
 //  FUNÇÃO PRINCIPAL
-
 int main(int argc, char** argv) {
     // 1. Validação do terminal
     if (argc != 2) {
@@ -71,8 +83,12 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    // Impressão do log de estado inicial
+    printf("Instancia lida com sucesso.\nEstado inicial:\n");
+    imprimeCubo();
+
     int seq_face[20], seq_dir[20];
-    int limite = 6; // máximO de busca
+    int limite = 6; // máximo de busca
     int resolvido = 0;
     int total_passos = 0;
 
@@ -86,16 +102,25 @@ int main(int argc, char** argv) {
         }
     }
 
-    if (!resolvido) {
+   if (!resolvido) {
         printf("Nao foi possivel encontrar uma solucao em ate %d passos para esta instancia\n", limite);
         return 1;
     }
 
-    // Recarrega o cubo bagunçado do arquivo para mostrar a animação do zero
-    carregarCubo(argv[1]); 
+    // Impressão da sequência exata de movimentos e estado final
+    printf("\nSequencia de movimentos:\n");
+    for(int i = 0; i < total_passos; i++) {
+        printf("%s %s\n", nome_faces[seq_face[i]], nome_direcoes[seq_dir[i]]);
+    }
+    
+    printf("\nEstado final:\n");
+    imprimeCubo();
+    printf("Cubo resolvido:\n\n");
 
-    //EXIBIÇÃO GRÁFICA
-    executa_animacao(total_passos, seq_face, seq_dir);
+    carregarCubo(argv[1]); // Recarrega o cubo bagunçado do arquivo para mostrar a animação do zero
+
+    // EXIBIÇÃO GRÁFICA
+    executaAnimacao(total_passos, seq_face, seq_dir);
 
     return 0;
 }
