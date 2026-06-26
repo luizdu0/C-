@@ -7,24 +7,27 @@
 
 // Espera 3 coisas: ./gerador, a quantidade de movimentos e o nome do arquivo
 int main(int argc, char** argv) {
-    if (argc != 3) {
-        printf("./gerador <qtd_movimentos> <nome_arq.txt>\n");
+    if (argc != 2) {
+        printf("./gerador <quantidade_de_arquivos>\n");
         return 1;
     }
-
-
-    int movimentos = atoi(argv[1]); //Converte o texto que você digitou no terminal para um número inteiro
-    char* nome_arq = argv[2]; //Guarda o nome do arquivo que será criado
+    int n_arquivos = atoi(argv[1]); // Quantidade de arquivos N que o usuario digitou
     
     srand(time(NULL));
-    inicializa_cubo_resolvido();
+
+// Criando N arquivos e resolvendo
+for (int i = 1; i <= n_arquivos; i++) {
+ char nome_arq[50];
+        sprintf(nome_arq, "cubo%d.txt", i);
+        inicializaCuboResolvido();
 
     // Embaralha usando a CUBINHO
-    for (int i = 0; i < movimentos; i++) {
-        int face = rand() % 6;
-        int dir = rand() % 2;
-        rotacao(face, dir);
-    }
+   int movimentos = 15 + (rand() % 16);  // Sorteia aleatoriamente entre 15 e 30 movimentos para cada arquivo gerado
+   for (int m = 0; m < movimentos; m++) {
+            int face = rand() % 6;
+            int dir = rand() % 2;
+            rotacao(face, dir);
+        }
 
     FILE *arquivo = fopen(nome_arq, "w");
     if (arquivo == NULL) {
@@ -32,8 +35,9 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    
     // Escreve as 6 faces no arquivo
-    fprintf(arquivo, "Cubo embaralhado com %d movimentos\n", movimentos);
+    fprintf(arquivo, "# Cubo embaralhado com %d movimentos\n", movimentos);
     for (int f = 0; f < 6; f++) {
         fprintf(arquivo, "%c\n", nome_faces[f][0]); 
         for (int l = 0; l < 3; l++) {
@@ -45,7 +49,10 @@ int main(int argc, char** argv) {
     }
 
     
+    
+    
     fclose(arquivo);
     printf("Arquivo %s gerado\n", nome_arq);
+}
     return 0;
 }
