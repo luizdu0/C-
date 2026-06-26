@@ -6,7 +6,7 @@
 enum Cores { AMARELO, VERDE, VERMELHO, LARANJA, BRANCO, AZUL };
 enum Face { CIMA, BAIXO, ESQUERDA, DIREITA, FRENTE, TRAS };
 enum Direcao { HORARIO, ANTIHORARIO };
-enum Rotacao { NORTE, SUL, LESTE, OESTE };
+enum Rotacao { NORTE, SUL, LESTE, OESTE }; // rotacao(FRENTE, HORARIO)
 
 // VARIÁVEIS GLOBAIS 
 extern int cubo[6][3][3];
