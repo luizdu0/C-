@@ -10,13 +10,15 @@ Passo 1: Compilar tudo
 Isso faz o compilador ler as regras do arquivo Makefile e criar dois programas executáveis: ./gerador e ./cubo:
 make 
 
-Passo 2: Criar um caso de teste (Gerador)
-Para criar um arquivo de cubo bagunçado, roda o executável do gerador passando a quantidade de movimentos (ex: 5) e o nome do arquivo que quer criar:
-./gerador 5 meucubo.txt
+Passo 2: Criar casos de teste (Gerador)
+Para criar os arquivos de cubo bagunçado, rode o executável do gerador passando a quantidade de arquivos de teste que você quer gerar. 
+O programa vai criar e nomear os arquivos de texto automaticamente:
+./gerador 3
+
 
 Passo 3: Resolver o cubo (Solucionador)
 Pega esse arquivo que acabou de ser criado e passaria para o programa principal resolver:
-./cubo meucubo.txt
+./cubo cubo1.txt
 
 Passo 4: Limpar a bagunça
 Isso apaga os executáveis e os arquivos .txt que você gerou, deixando a pasta limpa:
