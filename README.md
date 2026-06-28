@@ -5,30 +5,28 @@
 
 # Simulador de Cubo Mágico
 ## Estrutura
-**gerador.c**
+###gerador.c
 O objetivo dele é inicializar um cubo resolvido, aplicar uma quantidade N de movimentos aleatórios e salvar esse estado bagunçado em um arquivo de texto.
 Serve para gerar os casos de teste que o cubo.c vai tentar resolver depois.
 
-**cubo.h**
+###cubo.h
 Não executa nada, mas define as estruturas de dados (como os enum para Cores, Faces e Direções) e declara as variáveis globais (a matriz 3D do cubo) e as assinaturas das funções.
 Ele permite que os diferentes arquivos .c "conversem" entre si sabendo quais funções existem sem precisarem conhecer o código interno uns dos outros.
 
-**cubinho.c**
+###cubinho.c
 Aqui que reside a matriz de estado do cubo (cubo[6][3][3]) e a lógica bruta. A rotacao mapea como as peças mudam de posição quando você gira uma face.
 (girando a matriz 3x3 e ajustando as bordas das faces adjacentes).
 
-**cubo.c**
+###cubo.c
 É o executável principal (main) para resolver o cubo.
 Lê o estado de um cubo embaralhado a partir de um arquivo .txt. Usa um algoritmo de Backtracking e testa combinações de movimentos até encontrar a solução dentro de um limite de passos.
 Após calcular a rota mentalmente, ele chama a interface gráfica para mostrar a animação passo a passo da solução.
 
-**interf.c**
+###interf.c
 É o "front-end" de terminal do projeto. Ele utiliza a biblioteca ncurses (em C/C++ para criar interfaces no terminal) para mapear as cores e imprimir as matrizes de forma que pareçam um cubo planificado na tela.
 Ele fica aguardando você apertar uma tecla para avançar cada passo.
 
-
-**Makefile**
-
+###Makefile
 Em vez de você ter que digitar comandos gigantescos no terminal toda vez que alterar um código, o Makefile automatiza isso.
 A regra gerador junta o gerador.c e o cubinho.c. 
 A regra cubo junta o cubo.c, cubinho.c e interf.c, e ainda avisa o compilador para linkar a biblioteca gráfica com o comando -lncurses.
