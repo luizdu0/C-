@@ -1,4 +1,4 @@
- // ARQUIVO ROTACAO CUBO
+//ARQUIVO ROTACAO CUBO
 #include <stdio.h>
 #include "cubo.h"
 
