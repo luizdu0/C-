@@ -1,5 +1,5 @@
 # Simulador de Cubo Mágico
-Artur Bosquerolli, Guilherme Gonçaves, Leandro Bitencourt, Luiz Eduardo Domingos e Maria Eduarda da Luz
+Arthur Bosquerolli, Guilherme Gonçaves, Leandro Bitencourt, Luiz Eduardo Domingos e Maria Eduarda da Luz
 
 ## Estrutura dos Arquivos
 
