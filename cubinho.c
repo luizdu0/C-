@@ -8,7 +8,6 @@ const char* nome_faces[6] = {"CIMA", "BAIXO", "ESQUERDA", "DIREITA", "FRENTE", "
 const char* nome_direcoes[2] = {"HORARIO", "ANTIHORARIO"};
 const char letras_cores[6] = {'Y', 'G', 'R', 'O', 'W', 'B'};
 
-
 //inicia o cubo resolvido,cada face recebe apenas uma unica cor
 void inicializaCuboResolvido() {
     for (int f = 0; f < 6; f++) {
@@ -19,7 +18,6 @@ void inicializaCuboResolvido() {
         }
     }
 }
-
 
 int cuboEstaResolvido() {
     for (int f = 0; f < 6; f++) {
@@ -48,7 +46,6 @@ void imprimeCubo() {
     }
 }
 
-
 // Gira a matriz 3x3 da própria face em 90 graus e não altera as faces vizinhas
 void gira(int f, int direcao) {
     int temp[3][3];
@@ -64,7 +61,6 @@ void gira(int f, int direcao) {
         }
     }
 }
-
 
 void rotacao(int face, int direcao) {
     // gira a face 3x3
