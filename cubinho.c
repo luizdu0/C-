@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include "cubo.h"
 
-// declaracao real das variaveis globais /enunciado do trab
+//declaracao real das variaveis globais/enunciado do trab
 int cubo[6][3][3];
 const char* nome_faces[6] = {"CIMA", "BAIXO", "ESQUERDA", "DIREITA", "FRENTE", "TRAS"};
 const char* nome_direcoes[2] = {"HORARIO", "ANTIHORARIO"};
 const char letras_cores[6] = {'Y', 'G', 'R', 'O', 'W', 'B'};
 
 
-// inicia o cubo resolvido,cada face recebe apenas uma unica cor
+//inicia o cubo resolvido,cada face recebe apenas uma unica cor
 void inicializaCuboResolvido() {
     for (int f = 0; f < 6; f++) {
         for (int l = 0; l < 3; l++) {
